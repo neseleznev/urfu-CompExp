@@ -1,2 +1,16 @@
-# urfu-CompExp
-Computational Experiment python code
+Ural Federal University
+=======================
+Computational Experiment (Вычислительный Эксперимент aka Методы вычислений)
+--------------------------------------------------------------
+### *Кандоба* ###
+
+Скрипты на python3.x для вычисления результатов лабораторных по метвычу.
+Условия задач внутри соответствующих папок.
+
+Спасибо за 3 лабу [Ромику][romik].
+
+ > PEP-8 checked
+
+**2015 год** (4 курс)
+
+   [romik]: <https://github.com/RomanDubinin/CompExp>
