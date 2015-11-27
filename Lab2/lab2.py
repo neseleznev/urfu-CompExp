@@ -95,7 +95,7 @@ def muller(functions, m_and_Ms, a, b, eps):
         x1 = a - (2*C) / (B + math.sqrt(B*B - 4*A*C))
         x2 = a - (2*C) / (B - math.sqrt(B*B - 4*A*C))
 
-        if x1 >= a and x1 <= b:
+        if a <= x1 <= b:
             x = x1
         else:
             x = x2
@@ -155,11 +155,12 @@ def print_results(method, functions, m_and_Ms, a, b, eps, digits):
     print("%s \t f(%.*f) = %.*f \t %d iterations." % (
         method.__doc__, digits, root, digits, functions[0](root), iterations))
     print("Values: " + str(trim(values, digits + 2)) + "\n")
+    # print("F(x): " + str(trim([functions[0](v) for v in values], digits + 2)) + "\n")
 
 
 def main():
     GROUP = 4
-    DIGITS = 5  # precision
+    DIGITS = 6  # precision
     EPS = 0.5 * 1e-5
 
     group = [
