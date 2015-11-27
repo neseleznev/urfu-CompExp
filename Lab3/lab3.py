@@ -4,15 +4,21 @@
 from gauss import compact_gauss_scheme, main_item_gauss_scheme
 from gauss.utils import MethodError, matrix_to_str, trim
 
-N = 15
+N = 14
 M = 20 - N
 A = 0.1 * M + 0.01 * N
-B = 0.2 * M + 0.02 * N + 0.001*M*N + 0.001*N*N
+B = 0.2 * M + 0.02 * N + 0.01*M*N + 0.001*N*N
 
 set_of_equations = [
     [1.2345, 3.1415, 1,         7.5175 + A],
     [2.3456, 5.9690, 0,         14.2836],
     [3.4567, 2.1828, 2 + 0.1*N, 7.8223 + B]
+]
+
+X_asterisk = [
+    [1],
+    [2],
+    [0.1*M + 0.01*N],
 ]
 
 
@@ -40,20 +46,23 @@ def main():
     subprocess.call("cls", shell=True)
 
     print("\n[I]\t\t\tReal answer(X*):\n")
+    print(matrix_to_str(X_asterisk))
+    print("Proof:")
     import sys
     sys.stdout.write('http://www.wolframalpha.com/input/?i=gauss [')
     for row in set_of_equations[:-1]:
         sys.stdout.write(str(row) + ", ")
     sys.stdout.write(str(set_of_equations[-1]))
     sys.stdout.write(']\n\n')
+
     print("=" * 80)
 
     print("[II]\t\t\tCompact Gauss Scheme: ")
-    do_method_investigation(compact_gauss_scheme, accuracy_list=[8, 10])
+    do_method_investigation(compact_gauss_scheme, accuracy_list=[2, 4, 6, 8])
     print("=" * 80)
 
     print("[III]\t\t\tGauss Scheme with main element: ")
-    do_method_investigation(main_item_gauss_scheme, accuracy_list=[4, 6, 10])
+    do_method_investigation(main_item_gauss_scheme, accuracy_list=[2, 4, 6, 8])
 
 
 if __name__ == '__main__':
