@@ -58,3 +58,11 @@ def find_max_cell(matrix, start_string_num):
                 res_i = i
                 res_j = j
     return res_i, res_j
+
+
+def distance_R3_vectors(m1, m2):
+    return (
+        (m1[0][0] - m2[0][0]) ** 2 +
+        (m1[1][0] - m2[1][0]) ** 2 +
+        (m1[2][0] - m2[2][0]) ** 2
+    ) ** (1/2)

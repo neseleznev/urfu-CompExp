@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Nikita Seleznev, 2015
 from gauss import compact_gauss_scheme, main_item_gauss_scheme
-from gauss.utils import MethodError, matrix_to_str, trim
+from gauss.utils import MethodError, matrix_to_str, trim, distance_R3_vectors
 
 N = 14
 M = 20 - N
@@ -36,6 +36,7 @@ def do_method_investigation(method, accuracy_list, verbose=True):
             print("\nAccuracy: ", accuracy)
             x_by_method = method(copy_of_system, accuracy, verbose)
             print("Answer:\n" + matrix_to_str(x_by_method) + "\n")
+            print("Distance R3: " + str(distance_R3_vectors(x_by_method, X_asterisk)))
         except MethodError as e:
             print(e)
 
