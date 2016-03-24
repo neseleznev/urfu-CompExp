@@ -59,11 +59,11 @@ def main():
     print("=" * 80)
 
     print("[II]\t\t\tCompact Gauss Scheme: ")
-    do_method_investigation(compact_gauss_scheme, accuracy_list=[2, 4, 6, 8])
+    do_method_investigation(compact_gauss_scheme, accuracy_list=[2, 4, 6])
     print("=" * 80)
 
     print("[III]\t\t\tGauss Scheme with main element: ")
-    do_method_investigation(main_item_gauss_scheme, accuracy_list=[2, 4, 6, 8])
+    do_method_investigation(main_item_gauss_scheme, accuracy_list=[2, 4, 6])
 
 
 if __name__ == '__main__':
