@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Nikita Seleznev, 2016
+# Great thanks to github.com/RomanDubinin
 
 
 def explicit_euler(f, xs, y0, h):

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Nikita Seleznev, 2016
+import sys
 from bokeh.plotting import figure, output_file, show
 import inspect
 import numpy as np
@@ -35,7 +36,7 @@ tasks = {
 }
 task = tasks[str(GROUP)]
 
-n = 30  # int(sys.argv[1])
+n = int(sys.argv[1])
 output_file("{0}_points.html".format(n))
 
 
@@ -44,41 +45,44 @@ Y0, f, df_x, df_xx, df_y, df_yy, df_xy, solution = task['y0'],\
     task['f'], task['df_x'], task['df_xx'], task['df_y'],\
     task['df_yy'], task['df_xy'], task['original_func']
 
-p = figure(title='{} {} points'.format(
-            inspect.getsource(f).split(':')[-1].strip(), n),
-           plot_width=1100, plot_height=600)
+p = figure(
+    title='{} {} points'.format(
+        inspect.getsource(f).split(':')[-1].strip(), n),
+    plot_width=1100,
+    plot_height=600
+)
 
-y_points = explicit_euler(f, x_points, Y0, 1 / n)
-p.line(x=x_points, y=y_points, color="red", legend="Эйлер")
-p.circle(x=x_points, y=y_points, color="red", legend="Эйлер")
+[draw(x=x_points, y=explicit_euler(f, x_points, Y0, 1 / n),
+      color="red", legend="Эйлер"
+      ) for draw in [p.line, p.circle]]
 
-y_points = cauchy(f, x_points, Y0, 1 / n)
-p.line(x=x_points, y=y_points, color="blue", legend="Коши")
+p.line(x=x_points, y=cauchy(f, x_points, Y0, 1 / n),
+       color="blue", legend="Коши")
 
-y_points = implicit_euler(f, x_points, Y0, 1 / n)
-p.line(x=x_points, y=y_points, color="red", line_dash=[4, 4], legend="неявный Эйлер")
+p.line(x=x_points, y=implicit_euler(f, x_points, Y0, 1 / n),
+       color="red", legend="Неявный метод Эйлера")
 
-y_points = euler_with_recount(f, x_points, Y0, 1 / n)
-p.line(x=x_points, y=y_points, color="red", legend="Эйлер с пересчётом")
-p.square(x=x_points, y=y_points, color="red", legend="Эйлер с пересчётом")
+[draw(x=x_points, y=euler_with_recount(f, x_points, Y0, 1 / n),
+      color="red", legend="Эйлера с пересчётом"
+      ) for draw in [p.line, p.square]]
 
-y_points = runge_kutta(f, x_points, Y0, 1 / n)
-p.line(x=x_points, y=y_points, color="purple", legend="Рунге-Кутты 4 го порядка")
+p.line(x=x_points, y=runge_kutta(f, x_points, Y0, 1 / n),
+       color="purple", legend="Рунге-Кутты 4 го порядка")
 
-y_points = extrapolation_adams(f, x_points, Y0, 1 / n)
-p.line(x=x_points, y=y_points, color="orange", legend="экстраполяционный метод Адамса(k=2)")
+p.line(x=x_points, y=extrapolation_adams(f, x_points, Y0, 1 / n),
+       color="orange", legend="Экстраполяционный метод Адамса(k=2)")
 
-y_points = taylor_3(f, df_x, df_y, x_points, Y0, 1 / n)
-p.line(x=x_points, y=y_points, color="green", legend="Тейлор 3 го порядка")
-p.triangle(x=x_points, y=y_points, color="green", legend="Тейлор 3 го порядка")
+[draw(x=x_points, y=taylor_3(f, df_x, df_y, x_points, Y0, 1 / n),
+      color="green", legend="Тейлор 3 го порядка"
+      ) for draw in [p.line, p.triangle]]
 
-y_points = taylor_4(f, df_x, df_y, df_xx, df_yy, df_xy, x_points, Y0, 1 / n)
-p.line(x=x_points, y=y_points, color="green", legend="Тейлор 4 го порядка")
-p.square(x=x_points, y=y_points, color="green", legend="Тейлор 4 го порядка")
+[draw(x=x_points, y=taylor_4(f, df_x, df_y, df_xx, df_yy, df_xy, x_points, Y0, 1 / n),
+      color="green", legend="Тейлор 4 го порядка"
+      ) for draw in [p.line, p.square]]
 
-y_points = list(map(solution, x_points))
-p.line(x=x_points, y=y_points, color="black", legend="origin")
-p.circle(x=x_points, y=y_points, color="black", legend="origin")
+[draw(x=x_points, y=list(map(solution, x_points)),
+      color="black", legend="origin"
+      ) for draw in [p.line, p.circle]]
 
-p.legend.orientation = "top_left"
+p.legend.location = "top_left"
 show(p)
