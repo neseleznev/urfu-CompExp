@@ -4,7 +4,8 @@
 # Great thanks to github.com/RomanDubinin
 
 
-def explicit_euler(f, xs, y0, h):
+def explicit_euler(xs, h, y0, f, **derivatives):
+    """Explicit Euler"""
     ys = [y0]
     for k in range(len(xs)):
         next_y = ys[k] + f(xs[k], ys[k]) * h
@@ -13,7 +14,8 @@ def explicit_euler(f, xs, y0, h):
     return ys[:-1]
 
 
-def implicit_euler(f, xs, y0, h):
+def implicit_euler(xs, h, y0, f, **derivatives):
+    """Implicit Euler"""
     ys = [y0]
     for k in range(len(xs)):
         subsidiary_y = ys[k] + f(xs[k], ys[k]) * h
@@ -23,7 +25,8 @@ def implicit_euler(f, xs, y0, h):
     return ys[:-1]
 
 
-def cauchy(f, xs, y0, h):
+def cauchy(xs, h, y0, f, **derivatives):
+    """Cauchy"""
     ys = [y0]
     for k in range(len(xs)):
         subsidiary_y = ys[k] + f(xs[k], ys[k]) * h / 2
@@ -33,7 +36,8 @@ def cauchy(f, xs, y0, h):
     return ys[:-1]
 
 
-def euler_with_recount(f, xs, y0, h):
+def euler_with_recount(xs, h, y0, f, **derivatives):
+    """Euler with recount"""
     ys = [y0]
     for k in range(len(xs)):
         subsidiary_y = ys[k] + f(xs[k], ys[k]) * h
@@ -43,7 +47,8 @@ def euler_with_recount(f, xs, y0, h):
     return ys[:-1]
 
 
-def runge_kutta(f, xs, y0, h):
+def runge_kutta(xs, h, y0, f, **derivatives):
+    """Runge-Kutta 4th"""
     ys = [y0]
     for k in range(len(xs)):
         k1 = h * f(xs[k], ys[k])
@@ -57,7 +62,8 @@ def runge_kutta(f, xs, y0, h):
     return ys[:-1]
 
 
-def extrapolation_adams(f, xs, y0, h):
+def extrapolation_adams(xs, h, y0, f, **derivatives):
+    """Extra Adams (k=2)"""
     ys = [y0, y0 + h * f(xs[0], y0)]
     for k in range(1, len(xs)):
         next_y = ys[k] + (
@@ -68,7 +74,8 @@ def extrapolation_adams(f, xs, y0, h):
     return ys[:-1]
 
 
-def taylor_3(f, df_x, df_y, xs, y0, h):
+def taylor_3(xs, h, y0, f, df_x, df_y, **derivatives):
+    """Taylor 3rd"""
     ys = [y0]
     for k in range(0, len(xs)):
         next_y = ys[k] + f(xs[k], ys[k])*h + (
@@ -79,7 +86,8 @@ def taylor_3(f, df_x, df_y, xs, y0, h):
     return ys[:-1]
 
 
-def taylor_4(f, df_x, df_y, df_xx, df_yy, df_xy, xs, y0, h):
+def taylor_4(xs, h, y0, f, df_x, df_y, df_xx, df_yy, df_xy, **derivatives):
+    """Taylor 4rd"""
     ys = [y0]
     for k in range(len(xs)):
         second_summand = f(xs[k], ys[k]) * h
