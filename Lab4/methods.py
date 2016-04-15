@@ -17,34 +17,34 @@ def explicit_euler(xs, h, y0, f, **derivatives):
 def implicit_euler(xs, h, y0, f, **derivatives):
     """Implicit Euler"""
     ys = [y0]
-    for k in range(len(xs)):
+    for k in range(len(xs) - 1):
         subsidiary_y = ys[k] + f(xs[k], ys[k]) * h
-        next_y = ys[k] + f(xs[k], subsidiary_y) * h
+        next_y = ys[k] + f(xs[k + 1], subsidiary_y) * h
         ys.append(next_y)
 
-    return ys[:-1]
+    return ys
 
 
 def cauchy(xs, h, y0, f, **derivatives):
     """Cauchy"""
     ys = [y0]
-    for k in range(len(xs)):
+    for k in range(len(xs) - 1):
         subsidiary_y = ys[k] + f(xs[k], ys[k]) * h / 2
         next_y = ys[k] + f(xs[k] + h / 2, subsidiary_y) * h
         ys.append(next_y)
 
-    return ys[:-1]
+    return ys
 
 
 def euler_with_recount(xs, h, y0, f, **derivatives):
     """Euler with recount"""
     ys = [y0]
-    for k in range(len(xs)):
+    for k in range(len(xs) - 1):
         subsidiary_y = ys[k] + f(xs[k], ys[k]) * h
         next_y = ys[k] + (f(xs[k], ys[k]) + f(xs[k], subsidiary_y)) * h / 2
         ys.append(next_y)
 
-    return ys[:-1]
+    return ys
 
 
 def runge_kutta(xs, h, y0, f, **derivatives):

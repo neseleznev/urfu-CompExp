@@ -50,9 +50,9 @@ methods = [
 
 def draw_all(n):
     plt.close()
-    x_points = np.linspace(0, 1, n, endpoint=True)
+    x_points = np.linspace(0, 1, n)
     for method, color in methods:
-        plt.plot(x_points, method(x_points, 1 / n, **task), color, label=method.__doc__)
+        plt.plot(x_points, method(x_points, 1 / (n+1), **task), color, label=method.__doc__)
     plt.plot(x_points, list(map(task['original_func'], x_points)), 'b*-', label='Original')
 
     legend = plt.legend(loc='upper left', shadow=True, fontsize='x-large')
@@ -95,7 +95,7 @@ l.pack()
 l2 = Label(frame, text="\nВыберите количество точек:", justify=CENTER, font=("Helvetica", 12), bd=0, bg=color1)
 l2.pack()
 
-w = Scale(frame, from_=30, to=500, resolution=10, length=300, bg=color1, borderwidth=0,
+w = Scale(frame, from_=20, to=500, resolution=10, length=300, bg=color1, borderwidth=0,
           relief=GROOVE, orient=HORIZONTAL, highlightthickness=0)
 w.pack()
 
