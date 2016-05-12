@@ -125,7 +125,7 @@ def main2():
     l2 = Label(frame, text="\nВыберите количество точек:", justify=CENTER, font=("Helvetica", 12), bd=0, bg=color1)
     l2.pack()
 
-    w = Scale(frame, from_=20, to=500, resolution=10, length=300, bg=color1, borderwidth=0,
+    w = Scale(frame, from_=5, to=50, resolution=1, length=300, bg=color1, borderwidth=0,
               relief=GROOVE, orient=HORIZONTAL, highlightthickness=0)
     w.pack()
 
