@@ -64,7 +64,6 @@ def get_next_m(x_points, func, method, y_0, dy_n, last_m, h):
     fi = ((y_points[-1] - y_points[-2]) / h) - dy_n
 
     y_points = method(x_points, h, 0, 1, lambda x, y, d_y: y)
-    print(h)
     d_fi = (y_points[-1] - y_points[-2]) / h
 
     return last_m - fi/d_fi
