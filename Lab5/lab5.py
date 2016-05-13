@@ -24,7 +24,7 @@ def draw_all(n):
         plt.close()
         x_points = np.linspace(0, 1, n, endpoint=True)
         y_0 = 0.0
-        right_boundary = e - 1.0/e + L
+        right_boundary = e - 1.0/e + L  # = y'(1)
 
         for method, color in [
             (explicit_euler, 'r8-'),
@@ -78,7 +78,7 @@ def main():
 
     Label(frame, text="\nВыберите количество точек:", justify=CENTER, font=("Helvetica", 12), bd=0, bg=color1).pack()
 
-    w = Scale(frame, from_=5, to=50, resolution=1, length=300, bg=color1, borderwidth=0,
+    w = Scale(frame, from_=5, to=500, resolution=1, length=300, bg=color1, borderwidth=0,
               relief=GROOVE, orient=HORIZONTAL, highlightthickness=0)
     w.pack()
 
